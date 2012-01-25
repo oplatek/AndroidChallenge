@@ -1,0 +1,11 @@
+Challenge Android
+is a data mining challenge and this repository contains documentations
+and tools settings for mining the date for this challenge.
+It is based on part of Data warehousing and data mining class project of Ondrej Platek and Peteris Nikorovski.
+https://github.com/oplatek/dwdm
+
+Tools used:
+Weka
+Rapid Miner
+C#
+
