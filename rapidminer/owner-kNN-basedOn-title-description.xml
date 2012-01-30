@@ -83,6 +83,11 @@
         <parameter key="use_local_random_seed" value="false"/>
         <parameter key="local_random_seed" value="1992"/>
       </operator>
+      <operator activated="true" class="set_role" compatibility="5.1.017" expanded="true" height="76" name="Set Role" width="90" x="45" y="165">
+        <parameter key="name" value="bug-owner"/>
+        <parameter key="target_role" value="label"/>
+        <list key="set_additional_roles"/>
+      </operator>
       <operator activated="true" class="text:process_document_from_data" compatibility="5.1.004" expanded="true" height="76" name="Process Documents from Data" width="90" x="246" y="165">
         <parameter key="create_word_vector" value="true"/>
         <parameter key="vector_creation" value="TF-IDF"/>
@@ -110,11 +115,6 @@
           <portSpacing port="sink_document 1" spacing="0"/>
           <portSpacing port="sink_document 2" spacing="0"/>
         </process>
-      </operator>
-      <operator activated="true" class="set_role" compatibility="5.1.017" expanded="true" height="76" name="Set Role" width="90" x="45" y="165">
-        <parameter key="name" value="bug-owner"/>
-        <parameter key="target_role" value="label"/>
-        <list key="set_additional_roles"/>
       </operator>
       <operator activated="true" class="parallel:x_validation_parallel" compatibility="5.1.002" expanded="true" height="130" name="Validation" width="90" x="380" y="165">
         <parameter key="create_complete_model" value="false"/>
@@ -178,8 +178,8 @@
       <connect from_op="Filter Examples (2)" from_port="example set output" to_op="Sample" to_port="example set input"/>
       <connect from_op="Sample" from_port="example set output" to_op="Set Role" to_port="example set input"/>
       <connect from_op="Sample" from_port="original" to_port="result 1"/>
-      <connect from_op="Process Documents from Data" from_port="example set" to_op="Validation" to_port="training"/>
       <connect from_op="Set Role" from_port="example set output" to_op="Process Documents from Data" to_port="example set"/>
+      <connect from_op="Process Documents from Data" from_port="example set" to_op="Validation" to_port="training"/>
       <connect from_op="Validation" from_port="averagable 1" to_port="result 2"/>
       <connect from_op="Validation" from_port="averagable 2" to_port="result 3"/>
       <portSpacing port="source_input 1" spacing="0"/>

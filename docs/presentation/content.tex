@@ -1,0 +1,101 @@
+\section{Key features} % (fold)
+\label{sec:use_label_otherwise no content}
+\begin{frame}\frametitle{Key features} 
+\includegraphics[height=3cm]{bugs.png} 
+\includegraphics[height=3cm]{Android-Logo-Wallpapers-for-HTC-06.jpg}
+\\
+\includegraphics[width=12cm]{bugs_android.png}
+  \begin{block}{Bugs reports on Google Code}
+   Interesting properties manually inserted \\
+   Some properties added automatically 
+  \end{block}
+\end{frame}
+
+\section{Tools} % (fold)
+\label{sec:Tools}
+
+\begin{frame}\frametitle{Tools used} 
+\includegraphics[height=3cm]{weka_logo.png}
+\includegraphics[height=3cm]{rapid_logo.png}
+\end{frame}
+
+\begin{frame}\frametitle{Process} 
+\includegraphics[height=7cm]{rapidminer-process.png}
+\end{frame}
+
+\section{Data statistics} % (fold)
+\begin{frame}\frametitle{Developers by component} 
+\includegraphics[height=7cm]{developers_by_component.png}
+\end{frame}
+
+\begin{frame}\frametitle{Histogram of components} 
+\begin{center}
+\includegraphics[height=7cm]{hist-component.png}
+\end{center}
+\end{frame}
+
+\section{Results} % (fold)
+\begin{frame}\frametitle{Classification results} 
+\begin{tabular}{|p{3cm}|c|c|c|c|}
+\hline
+Type     &       Algorithm    & Sample Size &  Time &  Accuracy   \\ \hline
+\hline
+Decision Trees & Weka J48      &   500  &   2:19  &    44.80\%  \\
+                              &&  1000  &  10:25  &    45.50\%  \\
+Decision Trees & Weka LAD-Tree &   500  &  13:40  &    39.80\%  \\
+
+Lazy Classifiers & 15-NN  &   500  &   0:11  &    45.40\%  \\
+                              &&  1000  &   0:38  &    49.70\%  \\
+                              &&  2000  &   3:13  &    55.90\%  \\
+
+Lazy Classifiers & 30-NN  &   500  &   0:21  &    45.10\%  \\
+                              &&  1000  &   0:56  &    49.00\%  \\
+                              &&  2000  &   3:31  &    54.40\%  \\
+
+
+SVM & Weka SMO &   500  &  0:53  &    41.40\%  \\
+                                     &&  1000  &  4:15  &    47.20\%  \\
+\hline
+\end{tabular}
+\end{frame}
+
+\begin{frame}\frametitle{Classification results 2} 
+\begin{tabular}{|p{2.1cm}|c|c|c|c|}
+\hline
+Type     &       Algorithm    & Size &   Accuracy 1 & Accuracy 2  \\ \hline
+\hline
+Decision Trees & Weka J48      &   500  &       44.80\%   &    46.5\% \\
+                              &&  1000  &      45.50\%  &    47.8\%\\
+Decision Trees & Weka LAD-Tree &   500  &      39.80\%  &    41.6\%\\
+
+Lazy Classifiers & 15-NN &   500  &      45.40\% &    43.4\% \\
+                              &&  1000  &      49.70\%  &    50.7\%\\
+                              &&  2000  &      55.90\%  &    54.8\%\\
+ 
+Lazy Classifiers & 30-NN  &   500  &      45.10\%  &    46.2\%\\
+                              &&  1000  &      49.00\%  &    49.9\%\\
+                              &&  2000  &      54.40\%  &    55.3\%\\
+
+
+SVM & Weka SMO &   500  &      41.40\% &      42.5\% \\
+                                     &&  1000  &      47.20\% &      48.2\% \\
+\hline
+\end{tabular}
+\end{frame}
+
+\section{Summary} % (fold)
+\begin{frame}\frametitle{Summary} 
+\begin{itemize}
+    \item Technologies: (Weka), RapidMiner 
+    \item Classification on real data 
+    \item Improved tokenizer 
+    \item Compared algorithms and document importance (TF-IDF vs Binary) 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Questions?} 
+\begin{center}
+\includegraphics[height=8cm]{android_thank_you.jpg}
+\end{center}
+\end{frame}

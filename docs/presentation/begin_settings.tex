@@ -1,0 +1,80 @@
+%%% Hlavní soubor. Zde se definují základní parametry a odkazuje se na ostatní èásti. %%%
+
+\documentclass{beamer}
+
+%  %handout mode -both presentation and notes
+%\documentclass[handout,notes=show]{beamer}
+%\usepackage{pgfpages}
+%\setbeameroption{show notes on second screen=left}
+%\usetemplatenote{\beamertemplatefootempty \insertslideintonotes{0.7} \insertnote}
+
+%  %only notes
+%\documentclass[notes=only]{beamer}
+%\usetemplatenote{\beamertemplatefootempty \insertslideintonotes{0.7} \insertnote}
+
+    
+
+
+%% Pokud pou¾íváte csLaTeX (doporuèeno):
+%\usepackage{czech}
+%% Pokud nikoliv:
+%\usepackage[czech]{babel}
+%\usepackage[T1]{fontenc}
+
+%% Pou¾ité kódování znakù: obvykle latin2, cp1250 nebo utf8:
+%\usepackage[latin2]{inputenc}
+
+%% Ostatní balíèky
+\usepackage{graphicx}
+\usepackage{amsthm}
+
+% Display lines for taking notes nex to the page
+%\usepackage{handoutWithNotes} 
+%\pgfpagesuselayout{1 on 1 with notes landscape}[a4paper,border shrink=5mm]
+
+\beamersetuncovermixins{\opaqueness<1>{25}}{\opaqueness<2->{15}}
+
+%\usepackage{handoutWithNotes} 
+%\pgfpagesuselayout{1 on 1 with notes landscape}[a4paper,border shrink=5mm]
+
+\def\todo#1{
+\emph{\color{red} TODO: #1}
+}
+
+\def\todon#1{
+  \todo{#1 \\}
+}
+%ruzna nastaveni beamru
+
+%1)
+%\setbeamertemplate{navigation symbols}{}
+%\usetheme{Warsaw}
+%2)
+%\setbeamercolor{frametitle}{fg=black,bg=white}
+%\setbeamercolor{title}{fg=black,bg=yellow!85!orange}
+%\usetheme{AnnArbor}
+%3)
+%\usetheme{CambridgeUS}
+%\usecolortheme{crane}
+%4)
+%\usetheme{Berkeley}
+%\usecolortheme{beetle}
+
+\usetheme{CambridgeUS}
+\usecolortheme{beetle}
+\setbeamercolor{title}{fg=black,bg=blue!20!green}
+\setbeamercolor{frametitle}{fg=black,bg=blue!85!green}
+\setbeamercolor{background canvas}{bg=white}
+
+
+%
+\author{Ondrej Platek}
+\title[Text Mining]{Android challenge - data minining}
+\date{\today}
+%\date{16.\,11.\,2010}
+\subtitle{Computational linguistics}
+\institute{UNIBZ}
+
+\graphicspath{{../images/}}
+
+\begin{document}
