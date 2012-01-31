@@ -36,9 +36,10 @@ Component and owner are later manually assigned by one of the administrators. St
 
 \subsection*{Processing of the data} % (fold)
 
-The bug database which was provided as a single XML file was converted to a CSV file using a manually written script which contains all bug properties, previously mentioned aggregated properties but doesn't contain any of the bug comments.
+\href{http://2012.msrconf.org/challenge_data/android_platform_bugs.rar}{The bug database}
+which was provided as a single XML file was converted to a CSV file using a manually written $C\#$ script. Generated CSV file contains all bug properties, previously mentioned aggregated properties but doesn't contain any of the bug comments.
 
-This CSV file was later imported in the data mining software that we used and each property was assigned a type as seen in the screenshot below.
+This CSV file was later imported in the Rapid Miner and each property was assigned a type as seen in the screenshot below.
 
 \begin{figure}
 \begin{center}
@@ -48,4 +49,5 @@ This CSV file was later imported in the data mining software that we used and ea
 \end{figure}
 
 Properties of type {\it text} will be later converted to vectors using the text processing features of the data mining software.
+Most of the other attributes will de discarded. The attribute {\it Owner(Assign Developer)} and {\it Component} will be changed to labels. In this project we focus on the process of converting text attributes to vectors and how applying different techniques can improve the performance of the classifiers.
 
