@@ -1,10 +1,10 @@
 
-We chose to mine the Android bug database because the data was already provided by the organizers of the MSR 2012 challange. More specifically, we chose to focus on the bug reports in this database as we believe it is the most important part of the entire database and it should give the most interesting results. The database contains 20169 reported bugs (up to December 3, 2011). 
+We originally chose to mine the Android bug database because the data was already provided by the organizers of the MSR 2012 challange. More specifically, we chose to focus on the bug reports in this database as we believe it is the most important part of the entire database and it should give the most interesting results. The database contains 20169 reported bugs (up to December 3, 2011). 
 
 \subsection*{Description of the data} % (fold)
 \label{sub:Description of the data}
 
-Here is the available data about the bugs.
+Let us present the available data about the bugs.
 
 \begin{itemize}
 \item Bug ID - unique identifier assigned to each bug
@@ -34,12 +34,12 @@ Title, description and type are entered by the user. System also automatically g
 Component and owner are later manually assigned by one of the administrators. Status, priority can later be changed, however, these changes are not reflected in the available data, only the latest state of the bug is available.
 % subsection Description of the data (end)
 
-\subsection*{Processing of the data} % (fold)
+\subsection*{Loading of the data} % (fold)
 
 \href{http://2012.msrconf.org/challenge_data/android_platform_bugs.rar}{The bug database}
 which was provided as a single XML file was converted to a CSV file using a manually written $C\#$ script. Generated CSV file contains all bug properties, previously mentioned aggregated properties but doesn't contain any of the bug comments.
 
-This CSV file was later imported in the Rapid Miner and each property was assigned a type as seen in the screenshot below.
+This CSV file was later imported in the Rapid Miner and to each property was assigned a type as seen in the screenshot below.
 
 \begin{figure}
 \begin{center}
@@ -48,6 +48,6 @@ This CSV file was later imported in the Rapid Miner and each property was assign
 \end{center}
 \end{figure}
 
-Properties of type {\it text} will be later converted to vectors using the text processing features of the data mining software.
-Most of the other attributes will de discarded. The attribute {\it Owner(Assign Developer)} and {\it Component} will be changed to labels. In this project we focus on the process of converting text attributes to vectors and how applying different techniques can improve the performance of the classifiers.
+Most of the other attributes will de discarded. The attribute {\it Component} was changed to labels and the textual attributes {\it Title} and {\it Description} were selected for further preprocessing. 
+In this project I focus on the process of converting text attributes to vectors and how applying different preprocessing techniques change the performance of the classifiers.
 

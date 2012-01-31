@@ -1,5 +1,7 @@
 
-{\bf Task.} When a bug report is submitted, someone has to look at it and determine which component it affects and assigned an appropriate label. Currently it is done manually by one of the maintainers. We wondered if it's possible to use data mining to automatically classify new bugs by component.
+\subsection*{Task} % (fold)
+\label{sub:Task}
+When a bug report is submitted, someone has to look at it and determine which component it affects and assigned an appropriate label. Currently it is done manually by one of the maintainers. We wondered if it's possible to use data mining to automatically classify new bugs by component.
 
 \begin{figure}[!htp]
 \begin{center} 
@@ -8,15 +10,21 @@
 \end{center}
 \end{figure}
 
-{\bf Attributes used.} After inspecting the available data, we came to the conclusion that only title and description should be used to determine the component since they describe the bug but other properties are just metadata. The outcome of the classifier should be the component name that this bug affects.
+\subsection*{Attributes used} % (fold)
+\label{sub:Attributes used}
+After inspecting the available data, we came to the conclusion that only title and description should be used to determine the component since they describe the bug but other properties are just metadata. The outcome of the classifier should be the component name that this bug affects.
 
-{\bf Training data and classes.} We need training data which should already be classified. Only the bugs which already had a component label assigned to them were chosen as the training data for data mining because the bugs with a component assigned to them are already classified and we didn't have to do it manually. There are about 10 different components used in the data, for example, Dalvik, System, Browser, Applications.
+\subsection*{Training and classes} % (fold)
+\label{sub:Training and classes}
+We need training data which should already be classified. Only the bugs which already had a component label assigned to them were chosen as the training data for data mining because the bugs with a component assigned to them are already classified and we didn't have to do it manually. There are about 10 different components used in the data, for example, Dalvik, System, Browser, Applications.
 In the training there are a lot of missing labels as you can see in the  Figure~\ref{fig:component}. In our measurements I consider only the data with not null values.
 
 The graphical representation of the processes of this data mining task can be seen in the following screenshot of Rapid Miner.
 
 
-{\bf Text processing.} Classifiers we used (k-NN, SVM and Decision Trees) can not work meaningfully with text directly, so it was necessary to preprocess text. The vector representation was choosen, because {\it SVM} and {\it k-NN} are designed for this representation and {\it Decision Trees} can be easily adjusted.
+\subsection*{Text processing} % (fold)
+\label{sub:Text processing}
+Classifiers we used (k-NN, SVM and Decision Trees) can not work meaningfully with text directly, so it was necessary to preprocess text. The vector representation was choosen, because {\it SVM} and {\it k-NN} are designed for this representation and {\it Decision Trees} can be easily adjusted.
 
 So title and description values were transformed into lower case
 and then tokenized. Firstly, using non letters as delimiters and
@@ -67,7 +75,9 @@ Term Occurrence       & 13\%   & 10\% &   5\%  \\
 \end{center}
 \end{figure}
 
-{\bf Performance.} After the data was pre-processed, we chose various classifying algorithms that were learned about in class and compared their accuracy. Accuracy is used to assess the performance of classifiers. Because of lack of time and high amount of combination among experiments 5-fold cross validation was used instead of 10-fold cross validation. Also I reduced the sample size of data because it would take too much time to the classifiers to run on our desktop computers.
+\subsection*{Performance} % (fold)
+\label{sub:Performance}
+ After the data was pre-processed, we chose various classifying algorithms that were learned about in class and compared their accuracy. Accuracy is used to assess the performance of classifiers. Because of lack of time and high amount of combination among experiments 5-fold cross validation was used instead of 10-fold cross validation. Also I reduced the sample size of data because it would take too much time to the classifiers to run on our desktop computers.
 
 The overall performance was not improved much as you can see in Figure~\ref{fig:performance}
 
