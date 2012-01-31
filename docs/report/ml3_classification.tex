@@ -24,7 +24,7 @@ The graphical representation of the processes of this data mining task can be se
 
 \subsection*{Text processing} % (fold)
 \label{sub:Text processing}
-Classifiers we used (k-NN, SVM and Decision Trees) can not work meaningfully with text directly, so it was necessary to preprocess text. The vector representation was choosen, because {\it SVM} and {\it k-NN} are designed for this representation and {\it Decision Trees} can be easily adjusted.
+Classifiers I used (k-NN, SVM and Decision Trees) can not work meaningfully with text directly, so it was necessary to preprocess text. The vector representation was choosen, because {\it SVM} and {\it k-NN} are designed for this representation and {\it Decision Trees} can be easily adjusted.
 
 So title and description values were transformed into lower case
 and then tokenized. Firstly, using non letters as delimiters and
@@ -77,9 +77,10 @@ Term Occurrence       & 13\%   & 10\% &   5\%  \\
 
 \subsection*{Performance} % (fold)
 \label{sub:Performance}
- After the data was pre-processed, we chose various classifying algorithms that were learned about in class and compared their accuracy. Accuracy is used to assess the performance of classifiers. Because of lack of time and high amount of combination among experiments 5-fold cross validation was used instead of 10-fold cross validation. Also I reduced the sample size of data because it would take too much time to the classifiers to run on our desktop computers.
+ After the data was pre-processed, I chose various classifying algorithms that were taught in class and compared their accuracy. Accuracy is used to assess the performance of classifiers. Because of lack of time and high amount of combination among experiments 5-fold cross validation was used instead of 10-fold cross validation. Also I reduced the sample size of data because it would take too much time to the classifiers to run on our desktop computers.
 
-The overall performance was not improved much as you can see in Figure~\ref{fig:performance}
+The overall performance was not improved as much as I have expected. See the results in Figure~\ref{fig:performance}. 
+The {\it Accuracy 1} is original accuracy from project with Peter. The {\it Accuracy 2} was achieved using TF-IDF, new tokenization and reduced length of 800 for vectors size.
 
 \begin{figure}
 \begin{center}
@@ -104,7 +105,7 @@ SVM & Weka SMO &   500  &      41.40\% &      42.5\% \\
                                      &&  1000  &      47.20\% &      48.2\% \\
 \hline
 \end{tabular}
-\caption{\label{fig:performance} Overall small improvements. Used TF-IDF, new tokenization, 800 vectors size}
+\caption{\label{fig:performance} Overall small improvements. }
 \end{center}
 \end{figure}
 
