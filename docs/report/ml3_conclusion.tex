@@ -1,6 +1,15 @@
+ 
+As can be seen, it is possible to automatically classify bugs by their content more than half of the time. All of the trialled algorithms could reach the 40\% accuracy barrier, however, the performance between these algorithms varies. 
 
-{\bf Conclusion.} As can be seen, it is possible to automatically classify bugs by their content more than half of the time. Most of the trialed algorithms could easily reach the 40\% accuracy barrier, however, the performance between these algorithms varies. 
+The goal of this project was to complete the overview of precision among different classifiers by comparing their precisions depending on textual preprocessing.
 
+The first conclusion from this project is that we had originally chosen quite good settings. 
+The examined techniques except new tokenizer did not improve the results. The tokenizer improved the results approximately by 2\%.
 
+Another more important conclusion is that different vectorising 
+techniques are suitable for different classifiers.
+The binary occurrence is at one side computed fast, but does not work well with {\it k-NN} and {\it SVM}. Especially, for {\it k-NN} the binary occurrence is really bad, because for a quite big {\it k} the distance between can be just 0 or 1 for sparse vectors.   
 
+Last but not least, I used profesional tool which is reliable
+and I am going to use it future too.
 % subsection Classification of bugs bugs by component (end)
