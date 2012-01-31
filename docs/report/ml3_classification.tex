@@ -3,77 +3,103 @@
 
 {\bf Task.} When a bug report is submitted, someone has to look at it and determine which component it affects and assigned an appropriate label. Currently it is done manually by one of the maintainers. We wondered if it's possible to use data mining to automatically classify new bugs by component.
 
-{\bf Attributes used.} After inspecting the available data, we came to the conclusion that only title and description should be used to determine the component since they describe the bug but other properties are just metadata. The outcome of the classifier should be the component name that this bug affects.
-
-{\bf Training data and classes.} We need training data which should already be classified. Only the bugs which already had a component label assigned to them were chosen as the training data for data mining because the bugs with a component assigned to them are already classified and we didn't have to do it manually. There are about 10 different components used in the data, for example, Dalvik, System, Browser, Applications.
-
-{\bf Text processing.} Classification algorithms can only work with numbers, not text, so it was necessary to preprocess text and convert it to vectors that algorithms can understand. Title and description values were transformed into lower case and then tokenized using non letters as delimiters and then word vectors were generated from them using TF-IDF (term frequency–inverse document frequency - used to evaluate how important a word is to a document in a collection or corpus). Each word then became an attribute with the TF-IDF value. Other vector creation schemas were trialed (term frequency, term occurences) but they showed poor results and it was concluded that TF-IDF is the best choice. It's worth pointing out that if a more sophisticated tokenization algorithm was used which could recognize Java code snippets and tokenize namespaces, class names, method names etc., perhaps it would significantly improve the accuracy of classifiers.
-
-{\bf Performance.} After the data was pre-processed, we chose various classifying algorithms that were learned about in class and compared their accuracy. Accuracy is used to assess the performance of classifiers. It was mentioned in the lectures that a stratified 10-fold cross validation is recommended for estimating accuracy. Because we wanted to try out various algorithms and compare them, we only used a sample of data because it would take too much time to the classifiers to run on our desktop computers.\newline
-
-The graphical representation of the processes of this data mining task can be seen in the following screenshot of Rapid Miner.
-
-\begin{figure}
-\begin{center}
-\includegraphics[scale=0.5]{ml3_classification_component_rapidminer}
-\caption{Workflow in Rapid Miner: 1. Load data 2. Select attributes 3. Use only labeled data 4. Use a sample 5. Text processing 6. Cross Validation}
+\begin{figure}[!htp]
+\begin{center} 
+\includegraphics[scale=0.5]{hist-component}
+\caption{Component distribution}
 \end{center}
 \end{figure}
 
-Obtained results are displayed in the following table. Type is the class of algorithms, algorithm is a specific classification algorithm (Weka means that it wasn't a Rapid Miner implementation of the algorithm), sample is the number of classified bugs used, time is how long it took to run, accuracy is the stratified 10-fold cross validation result. Starred times indicate that they were run on a different computer.
-\\
-\\
-\begin{tabular}{|c|c|c|c|c|}
+{\bf Attributes used.} After inspecting the available data, we came to the conclusion that only title and description should be used to determine the component since they describe the bug but other properties are just metadata. The outcome of the classifier should be the component name that this bug affects.
+
+{\bf Training data and classes.} We need training data which should already be classified. Only the bugs which already had a component label assigned to them were chosen as the training data for data mining because the bugs with a component assigned to them are already classified and we didn't have to do it manually. There are about 10 different components used in the data, for example, Dalvik, System, Browser, Applications.
+In the training there are a lot of missing labels as you can see in the  Figure~\ref{fig:component}. In our measurements I consider only the data with not null values.
+
+The graphical representation of the processes of this data mining task can be seen in the following screenshot of Rapid Miner.
+
+
+{\bf Text processing.} Classifiers we used (k-NN, SVM and Decision Trees) can not work meaningfully with text directly, so it was necessary to preprocess text. The vector representation was choosen, because {\it SVM} and {\it k-NN} are designed for this representation and {\it Decision Trees} can be easily adjusted.
+
+So title and description values were transformed into lower case
+and then tokenized. Firstly, using non letters as delimiters and
+secondly just the white space delimiters. Because of the
+specific programming domain, simple white space separators were
+more successful. Let us take example from the description
+attribute. The tokenizer had to parse {\bf {\it
+android.os.SystemClock.uptimeMillis()}}. According non letters
+tokenizer the example will be parsed into {\bf {\it android}},
+{\bf {\it os}}, {\bf {\it SystemClock}} etc., which divided into
+several uncorrelated words. My hope had been that keeping the
+words together will allow the classifiers discover the meaning
+of the whole phrase. Unfortunately, I discovered that in general
+the precision were improved only around $2\%$. I tried to
+improved the performance by stemming, but I was not able to
+observe any significant difference.
+
+After tokenisation the word vectors were generated by using TF-IDF, binary term occurrences and term frequency.
+In our example, one document was title and description of a bug.
+The vectors consist of TF-IDF respectively binary term occurrences or term frequency values for one of all tokens and its values for the document.
+
+After vector generation I selected first 1000 most significant words from the vectors and pass them to the classifier.
+
+\begin{figure}
+\begin{center} 
+\includegraphics[scale=0.5]{rapidminer-process}
+\caption{Process description: Process Document contains(tokenization, vectorisation, stemming), Validation contains(training, testing, performance measurement)}
+\end{center}
+\end{figure}
+As general I can see that TF-IDF allows the classifiers best precision, term frequency is also usable alternative, but term occurrences performs the worst.
+However, the performance heavily depends on the classifiers.
+In the Figure~\ref{fig:vectors} you can see the comparison. 
+I measured the decrease of performance from results of 10 experiments on 500 sample size.
+I guess that {\it Decision Trees} are not influenced so strongly by change of the vector generation
+technique, because they can not use TF-IDF properly and gives poorer result with TF-IDF.
+It is worth to note, that despise the bigger decrease of successful rate by {\it 30-NN} and {\it SVM},
+the overall performance order among {\it 30-NN}, {\it SVM} and {\it Decision Trees} remained the same.
+\begin{figure}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
 \hline
-Type     &       Algorithm    & Sample Size &  Time &  Accuracy   \\
-\hline
-\hline
-Decision Trees & Weka J48      &   500  &   2:19  &    44.80\%  \\
-                              &&  1000  &  10:25  &    45.50\%  \\
-Decision Trees & Weka LAD-Tree &   500  &  13:40  &    39.80\%  \\
-
-Bayes Classifiers & Naive Bayes &   500  &   0:08  &    37.80\%  \\
-                               &&  1000  &   0:20  &    39.30\%  \\
-                               &&  2000  &   0:56  &    42.40\%  \\
-                               &&  4000  &   2:53  &    43.32\%  \\
-
-Bayes Classifiers & Bayes Network &   500  &  0:18  &   40.60\%  \\
-                                 &&  1000  &  1:11  &   42.50\%  \\
-                                 &&  2000  &  4:06  &   50.05\%  \\
-                                 &&  4000  & 43:41* &   54.45\%  \\
-
-Lazy Classifiers & k-NN (k=1) &   500  &   0:09  &    41.60\%  \\
-                             &&  1000  &   0:39  &    40.80\%  \\
-                             &&  2000  &   3:08  &    46.65\%  \\
-                             &&  4000  &  11:14* &    49.07\%  \\
-
-Lazy Classifiers & k-NN (k=15) &   500  &   0:11  &    45.40\%  \\
-                              &&  1000  &   0:38  &    49.80\%  \\
-                              &&  2000  &   3:13  &    55.60\%  \\
-                              &&  4000  &  11:18* &    58.02\%  \\
-
-Lazy Classifiers & k-NN (k=30) &   500  &   0:10  &    45.00\%  \\
-                              &&  1000  &   0:35  &    49.20\%  \\
-                              &&  2000  &   3:01  &    54.60\%  \\
-                              &&  4000  &  11:15* &    57.98\%  \\
-
-Lazy Classifiers & k-NN (k=60) &   500  &   0:08  &    42.20\%  \\
-                              &&  1000  &   0:38  &    46.70\%  \\
-                              &&  2000  &   3:29  &    52.50\%  \\
-                              &&  4000  &  11:21* &    56.10\%  \\
-
-Support Vector Classifiers & Weka SMO &   500  &  0:53  &    41.40\%  \\
-                                     &&  1000  &  4:15  &    47.20\%  \\
+Classifier/Method     & 30-NN  & SVM &  Decision Tree   \\
+Term Frequency        & 6\%    & 5\% &    3\%  \\
+Term Occurrence       & 13\%   & 10\% &   5\%  \\
 \hline
 \end{tabular}
-\\
-\\
+\caption{\label{fig:vectors} The decrease of performance of term frequency and binary term occurrence compare to TF-IDF}
+\end{center}
+\end{figure}
 
-{\bf Conclusion.} As can be seen, it is possible to automatically classify bugs by their content more than half of the time. Most of the trialed algorithms could easily reach the 40\% accuracy barrier, however, the performance between these algorithms varies. While decision trees provide an acceptable although below average accuracy compared to all other algorithms, their performance is very poor. Bayes Network was the first algorithm to cross the 50\% line but it was beaten by k-NN which not only performs much faster but also gives the best accuracy. Therefore the k-NN algorithm was chosen to be run on the whole dataset to find out the best possible accuracy. It was mentioned in the lectures that the k-value should be in tens which clearly holds true in our experiments.
+{\bf Performance.} After the data was pre-processed, we chose various classifying algorithms that were learned about in class and compared their accuracy. Accuracy is used to assess the performance of classifiers. Because of lack of time and high amount of combination among experiments 5-fold cross validation was used instead of 10-fold cross validation. Also I reduced the sample size of data because it would take too much time to the classifiers to run on our desktop computers.
 
-When the k-NN (k=15) was run on the whole dataset (4731 bugs), its accuracy was 58.55\%. If a more sophisticated tokenizer was developed and used, it's our belief that the accuracy could be higher, perhaps even as high as 70\%. Such accuracy is acceptable although leaves something to be desired and the model could be used to automatically assign the appropriate component when a bug is reported and the maintainers would only need to change it 40\% of the time.
+The overall performance was not improved much as you can see in Figure~\ref{fig:performance}
 
-% subsection Classification of bugs bugs by component (end)
+\begin{figure}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Type     &       Algorithm    & Size &   Accuracy 1 & Accuracy 2  \\ \hline
+\hline
+Decision Trees & Weka J48      &   500  &       44.80\%   &    46.5\% \\
+                              &&  1000  &      45.50\%  &    47.8\%\\
+Decision Trees & Weka LAD-Tree &   500  &      39.80\%  &    41.6\%\\
+
+Lazy Classifiers & 15-NN &   500  &      45.40\% &    43.4\% \\
+                              &&  1000  &      49.70\%  &    50.7\%\\
+                              &&  2000  &      55.90\%  &    54.8\%\\
+ 
+Lazy Classifiers & 30-NN  &   500  &      45.10\%  &    46.2\%\\
+                              &&  1000  &      49.00\%  &    49.9\%\\
+                              &&  2000  &      54.40\%  &    55.3\%\\
+
+
+SVM & Weka SMO &   500  &      41.40\% &      42.5\% \\
+                                     &&  1000  &      47.20\% &      48.2\% \\
+\hline
+\end{tabular}
+\caption{\label{fig:performance} Overall small improvements. Used TF-IDF, new tokenization, 800 vectors size}
+\end{center}
+\end{figure}
+
 
 % section Classification (end)
 
